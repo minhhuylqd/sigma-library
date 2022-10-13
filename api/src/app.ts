@@ -7,7 +7,11 @@ import cors from 'cors'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
-import movieRouter from './routers/movie.router'
+import bookRouter from './routers/book.router'
+import authorRouter from './routers/author.router'
+import authRouter from './routers/auth.router'
+import userRouter from './routers/user.router'
+import borrowerRouter from './routers/borrower.router'
 
 dotenv.config({ path: '.env' })
 const app = express()
@@ -42,7 +46,11 @@ app.use(passport.session())
 */
 
 // Set up routers
-app.use('/api/v1/movies', movieRouter)
+app.use('/api/v1/books', bookRouter)
+app.use('/api/v1/authors', authorRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/users', userRouter)
+app.use('/api/v1/borrowers', borrowerRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)

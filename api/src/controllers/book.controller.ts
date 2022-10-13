@@ -1,28 +1,65 @@
 import { Request, Response, NextFunction } from 'express'
 
-import Movie from '../models/Movie'
-import movieService from '../services/movie.service'
+import Book from '../models/Book'
+import bookService from '../services/book.service'
 import { BadRequestError } from '../helpers/apiError'
 
-// POST /movies
-export const createMovie = async (
+// GET /books/:bookId
+export const getBookById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { name, publishedYear, genres, duration, characters } = req.body
+    const { bookId } = req.params
+    const book = await bookService.getBookById(bookId)
+    res.json(book)
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
 
-    const movie = new Movie({
-      name,
-      publishedYear,
-      genres,
-      duration,
-      characters,
+// GET /books
+export const getAllBooks = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await bookService.getAllBooks())
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// POST /books
+export const addBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { isbn, title, description, publisher, authors, copies } = req.body
+
+    const book = new Book({
+      isbn: isbn,
+      title: title,
+      description: description,
+      publisher: publisher,
+      authors: authors,
+      copies: copies,
     })
 
-    await movieService.create(movie)
-    res.json(movie)
+    await bookService.addBook(book)
+    res.json(book)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -32,17 +69,17 @@ export const createMovie = async (
   }
 }
 
-// PUT /movies/:movieId
-export const updateMovie = async (
+// PUT /books/:bookId
+export const updateBook = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
+    const { bookId } = req.params
     const update = req.body
-    const movieId = req.params.movieId
-    const updatedMovie = await movieService.update(movieId, update)
-    res.json(updatedMovie)
+    const updatedBook = await bookService.updateBook(bookId, update)
+    res.json(updatedBook)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -52,49 +89,18 @@ export const updateMovie = async (
   }
 }
 
-// DELETE /movies/:movieId
-export const deleteMovie = async (
+// DELETE /books/:bookId
+export const deleteBook = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    await movieService.deleteMovie(req.params.movieId)
-    res.status(204).end()
-  } catch (error) {
-    if (error instanceof Error && error.name == 'ValidationError') {
-      next(new BadRequestError('Invalid Request', 400, error))
-    } else {
-      next(error)
-    }
-  }
-}
-
-// GET /movies/:movieId
-export const findById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    res.json(await movieService.findById(req.params.movieId))
-  } catch (error) {
-    if (error instanceof Error && error.name == 'ValidationError') {
-      next(new BadRequestError('Invalid Request', 400, error))
-    } else {
-      next(error)
-    }
-  }
-}
-
-// GET /movies
-export const findAll = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    res.json(await movieService.findAll())
+    const { bookId } = req.params
+    await bookService.deleteBook(bookId)
+    res.status(204).json({
+      message: 'Book Deleted',
+    })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
