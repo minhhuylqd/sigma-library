@@ -21,8 +21,8 @@ router.get(
   adminAuth,
   getBorrowerById
 )
-router.post('/', credentialAuth, addBorrower)
-router.put('/:borrowerId', credentialAuth, updateBorrower)
+router.post('/', credentialAuth, activeAuth, addBorrower)
+router.put('/:borrowerId', credentialAuth, activeAuth, updateBorrower)
 router.delete(
   '/:borrowerId',
   credentialAuth,
