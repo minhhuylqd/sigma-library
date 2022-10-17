@@ -16,7 +16,12 @@ const ListItem = ({ id }: Item) => {
       <li>Title: {book.title}</li>
       <li>ISBN: {book.isbn}</li>
       <li>Available Copies: {book.availableCopies}</li>
-      <li>Authors: {book.authorNames.map((author) => <span key={author}>{author}, </span>)}</li>
+      <li>
+        Authors:{' '}
+        {book.authorNames.map((author) => (
+          <span key={author}>{author}, </span>
+        ))}
+      </li>
     </ul>
   )
 }

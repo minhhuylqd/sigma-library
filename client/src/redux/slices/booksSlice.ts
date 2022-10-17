@@ -74,25 +74,32 @@ export const selectFilteredBookIds = createSelector(
   selectAllBooks,
   (state: RootState) => state.filters.book,
   (booksState, filtersState) => {
-    const {searchQuery, filterOptions} = filtersState
+    const { searchQuery, filterOptions } = filtersState
 
-    const filteredByTitle = 
-      Object.values(booksState.entitites)
-      .filter((book) => book.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    const filteredByTitle = Object.values(booksState.entitites)
+      .filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
       .map((book) => book._id)
 
-    const filteredByIsbn =
-      Object.values(booksState.entitites)
-      .filter((book) => book.isbn.toLowerCase().includes(searchQuery.toLowerCase()))
+    const filteredByIsbn = Object.values(booksState.entitites)
+      .filter((book) =>
+        book.isbn.toLowerCase().includes(searchQuery.toLowerCase())
+      )
       .map((book) => book._id)
 
-    const filteredByAuthors =
-      Object.values(booksState.entitites)
+    const filteredByAuthors = Object.values(booksState.entitites)
       .filter((book) => book.authors)
-      .filter((book) => book.authorNames.find((author) => author.toLowerCase().includes(searchQuery.toLowerCase())))
+      .filter((book) =>
+        book.authorNames.find((author) =>
+          author.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      )
       .map((book) => book._id)
 
-    return Array.from(new Set([...filteredByTitle, ...filteredByIsbn, ...filteredByAuthors]))
+    return Array.from(
+      new Set([...filteredByTitle, ...filteredByIsbn, ...filteredByAuthors])
+    )
   }
 )
 

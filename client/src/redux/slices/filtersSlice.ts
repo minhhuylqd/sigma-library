@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface FiltersState {
   book: {
@@ -13,9 +13,9 @@ const initialState: FiltersState = {
   book: {
     searchQuery: '',
     filterOptions: {
-      isAvailable: false
-    }
-  }
+      isAvailable: false,
+    },
+  },
 }
 
 // REGION -- FiltersSlice
@@ -28,11 +28,12 @@ const filtersSlice = createSlice({
     },
     updateBookAvailableOption(state: FiltersState, action) {
       state.book.searchQuery = action.payload
-    }
-  }
+    },
+  },
 })
 
-export const {updateBookSearch, updateBookAvailableOption} = filtersSlice.actions
+export const { updateBookSearch, updateBookAvailableOption } =
+  filtersSlice.actions
 
 export default filtersSlice.reducer
 // ENDREGION -- FiltersSlice

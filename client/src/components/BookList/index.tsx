@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 
-import { selectAllBookIds, selectFilteredBookIds } from 'redux/slices/booksSlice'
+import {
+  selectFilteredBookIds,
+} from 'redux/slices/booksSlice'
 import ListItem from './ListItem'
 
 const BookList = () => {
@@ -11,7 +13,7 @@ const BookList = () => {
   ))
 
   return (
-    <div className='w-full max-w-[1000px] grid grid-cols-1 p-8 gap-4'>
+    <div className="w-full max-w-[1000px] grid grid-cols-1 p-8 gap-4">
       {bookItems}
     </div>
   )

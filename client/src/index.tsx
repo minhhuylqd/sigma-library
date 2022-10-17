@@ -7,8 +7,10 @@ import store from 'redux/store'
 import 'index.css'
 import { fetchAllBooks } from 'redux/slices/booksSlice'
 import reportWebVitals from 'reportWebVitals'
+import { fetchCredentialThunk } from 'redux/slices/authSlice'
 
 store.dispatch(fetchAllBooks())
+store.dispatch(fetchCredentialThunk())
 
 const container = document.getElementById('root')!
 const root = createRoot(container)

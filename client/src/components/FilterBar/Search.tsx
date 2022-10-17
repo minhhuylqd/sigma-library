@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import {IconContext} from 'react-icons'
-import {AiOutlineClose} from 'react-icons/ai'
+import { IconContext } from 'react-icons'
+import { AiOutlineClose } from 'react-icons/ai'
 
-import {updateBookSearch} from 'redux/slices/filtersSlice'
+import { updateBookSearch } from 'redux/slices/filtersSlice'
 
 const Search = () => {
-
   const dispatch = useDispatch()
 
   const [input, setInput] = useState('')
@@ -22,7 +21,7 @@ const Search = () => {
   const clearSearch = () => setInput('')
 
   const clearSearchButton = (
-    <button className='absolute inset-y-0 right-0 p-4' onClick={clearSearch}>
+    <button className="absolute inset-y-0 right-0 p-4" onClick={clearSearch}>
       <IconContext.Provider value={{}}>
         <AiOutlineClose />
       </IconContext.Provider>
@@ -30,7 +29,7 @@ const Search = () => {
   )
 
   return (
-    <div className='relative w-full max-w-[500px]'>
+    <div className="relative w-full max-w-[500px]">
       <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
         <svg
           aria-hidden="true"
@@ -48,10 +47,10 @@ const Search = () => {
           ></path>
         </svg>
       </div>
-      <input 
-        className='p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+      <input
+        className="p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="text"
-        placeholder='Search Book...'
+        placeholder="Search Book..."
         value={input}
         onChange={handleInputChange}
       />
