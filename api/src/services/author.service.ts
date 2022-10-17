@@ -13,6 +13,14 @@ const getAllAuthors = async (): Promise<AuthorDocument[]> => {
   return Author.find()
 }
 
+const getAuthorNameById = async (authorId: string): Promise<string> => {
+  const author = await Author.findById(authorId)
+  if (!author) {
+    throw new NotFoundError(`Author ${authorId} not found`)
+  }
+  return author.name
+}
+
 const addAuthor = async (author: AuthorDocument): Promise<AuthorDocument> => {
   return author.save()
 }
@@ -45,6 +53,7 @@ const deleteAuthor = async (
 export default {
   getAuthorById,
   getAllAuthors,
+  getAuthorNameById,
   addAuthor,
   updateAuthor,
   deleteAuthor,

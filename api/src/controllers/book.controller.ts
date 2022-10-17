@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 
 import Book from '../models/Book'
+import Borrower from '../models/Borrower'
 import bookService from '../services/book.service'
+import authorService from '../services/author.service'
 import { BadRequestError } from '../helpers/apiError'
 
 // GET /books/:bookId
@@ -13,7 +15,49 @@ export const getBookById = async (
   try {
     const { bookId } = req.params
     const book = await bookService.getBookById(bookId)
-    res.json(book)
+    const availableCopies = await bookService.getBookAvailableCopies(book._id)
+    let authorNames
+    if (book.authors) {
+      authorNames = await Promise.all(
+        book.authors.map(async (authorId) => {
+          const name = await authorService.getAuthorNameById(
+            authorId.toString()
+          )
+          return name
+        })
+      )
+    }
+    res.json({
+      ...book.toObject(),
+      availableCopies: availableCopies,
+      authorNames: authorNames ? authorNames : [],
+    })
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// GET /books/:bookId/availableCopies
+export const getAvailableCopiesByBookId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { bookId } = req.params
+    const book = await bookService.getBookById(bookId)
+    const bookCopies = book.copies
+    const borrowedCopies = await Borrower.find({ bookId: bookId })
+      .exists('returnedDate', false)
+      .count()
+    res.json({
+      _id: book._id,
+      availableCopies: bookCopies - borrowedCopies,
+    })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -30,7 +74,31 @@ export const getAllBooks = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await bookService.getAllBooks())
+    const allBooks = await bookService.getAllBooks()
+    const returnedAllBooks = await Promise.all(
+      allBooks.map(async (book) => {
+        const availableCopies = await bookService.getBookAvailableCopies(
+          book._id as string
+        )
+        let authorNames
+        if (book.authors) {
+          authorNames = await Promise.all(
+            book.authors.map(async (authorId) => {
+              const name = await authorService.getAuthorNameById(
+                authorId.toString()
+              )
+              return name
+            })
+          )
+        }
+        return {
+          ...book.toObject(),
+          availableCopies: availableCopies,
+          authorNames: authorNames ? authorNames : [],
+        }
+      })
+    )
+    res.json(returnedAllBooks)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

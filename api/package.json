@@ -14,8 +14,8 @@
     "watch-ts": "tsc -w",
     "test": "jest --watchAll --detectOpenHandles",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "lint-check": "prettier --config .prettierrc.js \"src/**/*.ts\" --check",
-    "lint-fix": "prettier --config .prettierrc.js \"src/**/*.ts\" --write"
+    "prettier-check": "prettier --config .prettierrc.js \"src/**/*.ts\" --check",
+    "prettier-fix": "prettier --config .prettierrc.js \"src/**/*.ts\" --write"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",

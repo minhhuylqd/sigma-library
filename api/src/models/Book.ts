@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose'
 
-export type BookDocument = Document & {
+export type BookType = {
   isbn: string
   title: string
   description: string
@@ -8,6 +8,8 @@ export type BookDocument = Document & {
   authors: mongoose.Schema.Types.ObjectId[]
   copies: number
 }
+
+export type BookDocument = Document & BookType
 
 const bookSchema = new mongoose.Schema({
   isbn: {
