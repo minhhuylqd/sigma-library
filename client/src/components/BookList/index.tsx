@@ -15,10 +15,10 @@ const BookList = () => {
   }, [dispatch])
 
   const bookIds = useSelector(selectFilteredBookIds)
-  const { isLogin } = useSelector(selectAuthState)
+  const { isLogin, isActive } = useSelector(selectAuthState)
 
   const bookItems = bookIds.map((bookId) => (
-    <ListItem key={bookId} id={bookId} isLogin={isLogin} />
+    <ListItem key={bookId} id={bookId} isLogin={isLogin} isActive={isActive} />
   ))
 
   return (

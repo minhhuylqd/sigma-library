@@ -36,6 +36,7 @@ const LoginForm = () => {
       }
       dispatch(fetchCredentialThunk())
     } catch (error) {
+      setStatus('Login Failed')
       console.log(error)
     }
   }
