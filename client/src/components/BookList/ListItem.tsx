@@ -51,6 +51,10 @@ const ListItem = ({ id, isLogin, isActive }: Item) => {
         })
       }
     } catch (error) {
+      setBorrowStatus({
+        status: 'FAIL',
+        message: 'Borrow Failed!'
+      })
       console.log(error)
     }
   }
