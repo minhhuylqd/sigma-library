@@ -5,10 +5,9 @@ import { AppDispatch } from 'redux/store'
 import { logout, selectAuthState } from 'redux/slices/authSlice'
 
 const Navbar = () => {
-
   const dispatch = useDispatch<AppDispatch>()
 
-  const {isLogin, isActive, isAdmin} = useSelector(selectAuthState)
+  const { isLogin, isActive, isAdmin } = useSelector(selectAuthState)
 
   const handleLogout = () => {
     dispatch(logout())
@@ -16,14 +15,14 @@ const Navbar = () => {
   }
 
   const logoutAndProfile = (
-    <div className='flex items-center gap-4'>
+    <div className="flex items-center">
       <Link to="/user">
         <div className="p-4 hover:text-light-gold-6 hover:bg-light-gold-1 hover:border-b-2 hover:border-light-gold-6">
           <h1>Profile</h1>
         </div>
       </Link>
       <Link to="/">
-        <button 
+        <button
           className="p-4 hover:text-light-gold-6 hover:bg-light-gold-1 hover:border-b-2 hover:border-light-gold-6"
           onClick={handleLogout}
         >
@@ -34,7 +33,7 @@ const Navbar = () => {
   )
 
   const loginAndSignup = (
-    <div className='flex items-center gap-4'>
+    <div className="flex items-center">
       <Link to="/login">
         <div className="p-4 hover:text-light-gold-6 hover:bg-light-gold-1 hover:border-b-2 hover:border-light-gold-6">
           <h1>Login</h1>
@@ -58,7 +57,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 w-full z-20 px-2 flex justify-between items-center bg-light-primary rounded-b-lg border-b">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center">
         <Link to="/">
           <div className="p-4 hover:text-light-gold-6 hover:bg-light-gold-1 hover:border-b-2 hover:border-light-gold-6">
             <h1 className="text-lg font-bold">THE SIGMA LIBRARY</h1>
@@ -71,13 +70,7 @@ const Navbar = () => {
         </Link>
         {isActive && isAdmin && adminLink}
       </div>
-      <div>
-        {
-          isLogin
-            ? logoutAndProfile
-            : loginAndSignup
-        }
-      </div>
+      <div>{isLogin ? logoutAndProfile : loginAndSignup}</div>
     </nav>
   )
 }

@@ -1,13 +1,20 @@
-import { RootState } from './../store';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { BACKEND_URL } from './../../utils/configs';
+import { RootState } from 'redux/store'
+import { BACKEND_URL } from 'utils/configs'
 
 export interface AuthState {
   isLogin: boolean
   isActive: boolean
   isAdmin: boolean
+  userInfo: {
+    _id: string
+    email: string
+    displayName: string
+    status: string
+    role: string
+  }
   status: string
 }
 
@@ -15,7 +22,14 @@ const initialState: AuthState = {
   isLogin: false,
   isActive: false,
   isAdmin: false,
-  status: 'idle'
+  userInfo: {
+    _id: '',
+    email: '',
+    displayName: '',
+    status: '',
+    role: ''
+  },
+  status: 'idle',
 }
 
 // REGION -- Thunk Function
@@ -25,26 +39,39 @@ export const fetchCredentialThunk = createAsyncThunk(
     try {
       const token = localStorage.getItem('authToken')
       if (token) {
-        const response = await axios.get(
-          `${BACKEND_URL}/users/me`,
-          {headers: {
-            Authorization: `Bearer ${token}`
-          }}
-        )
+        const response = await axios.get(`${BACKEND_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         if (response.status === 200 && response.data) {
           const isActive = response.data.status === 'ACTIVE'
           const isAdmin = response.data.role === 'ADMIN'
           return {
             isLogin: true,
             isActive: isActive,
-            isAdmin: isAdmin
+            isAdmin: isAdmin,
+            userInfo: {
+              _id: response.data._id,
+              email: response.data.email,
+              displayName: response.data.displayName,
+              status: response.data.status,
+              role: response.data.role,
+            },
           }
         }
       }
       return {
         isLogin: false,
         isActive: false,
-        isAdmin: false
+        isAdmin: false,
+        userInfo: {
+          _id: '',
+          email: '',
+          displayName: '',
+          status: '',
+          role: '',
+        },
       }
     } catch (error) {
       throw error
@@ -62,7 +89,14 @@ const authSlice = createSlice({
       state.isLogin = false
       state.isActive = false
       state.isAdmin = false
-    }
+      state.userInfo = {
+        _id: '',
+        email: '',
+        displayName: '',
+        status: '',
+        role: '',
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -75,13 +109,14 @@ const authSlice = createSlice({
           state.isLogin = data.isLogin
           state.isActive = data.isActive
           state.isAdmin = data.isAdmin
+          state.userInfo = data.userInfo
         }
         state.status = 'idle'
       })
-  }
+  },
 })
 
-export const {logout} = authSlice.actions
+export const { logout } = authSlice.actions
 
 export default authSlice.reducer
 // ENDREGION -- AuthSlice

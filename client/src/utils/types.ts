@@ -9,3 +9,12 @@ export type Book = {
   availableCopies: number
   authorNames: string[]
 }
+
+export type BorrowedHistory = {
+  _id: string
+  bookId: string
+  userId: string
+  borrowedDate: string
+  dueDate: string
+  returnedDate?: string
+}

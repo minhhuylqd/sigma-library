@@ -5,17 +5,17 @@ import { RootState } from 'redux/store'
 
 type Item = {
   id: string
+  isLogin: boolean
 }
 
-const ListItem = ({ id }: Item) => {
+const ListItem = ({ id, isLogin }: Item) => {
   const book = useSelector((state: RootState) => selectBookById(state, id))
 
   return (
     <ul>
-      <li>Book ID: {book._id}</li>
       <li>Title: {book.title}</li>
       <li>ISBN: {book.isbn}</li>
-      <li>Available Copies: {book.availableCopies}</li>
+      <li>Copies: {book.copies}</li>
       <li>
         Authors:{' '}
         {book.authorNames.map((author) => (

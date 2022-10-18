@@ -1,10 +1,11 @@
-import Navbar from "components/Navbar"
+import Navbar from 'components/Navbar'
+import UserInfo from 'components/UserInfo'
 
 const User = () => {
   return (
-    <div>
+    <div className="w-full min-h-screen relative bg-light-primary text-black">
       <Navbar />
-      <h1>Profile Page</h1>
+      <UserInfo />
     </div>
   )
 }

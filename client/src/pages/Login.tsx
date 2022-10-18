@@ -6,8 +6,7 @@ import LoginSucess from 'components/LoginSuccess'
 import { selectAuthState } from 'redux/slices/authSlice'
 
 const Login = () => {
-
-  const {isLogin} = useSelector(selectAuthState)
+  const { isLogin } = useSelector(selectAuthState)
 
   return (
     <div className="w-full min-h-screen relative bg-light-primary text-black">
