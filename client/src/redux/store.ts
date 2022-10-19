@@ -5,6 +5,7 @@ import filtersReducer from './slices/filtersSlice'
 import authReducer from './slices/authSlice'
 import borrowerReducer from './slices/borrowerSlice'
 import authorsReducer from './slices/authorsSlice'
+import adminReducer from './slices/adminSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ export const store = configureStore({
     filters: filtersReducer,
     auth: authReducer,
     borrower: borrowerReducer,
-    authors: authorsReducer
+    authors: authorsReducer,
+    admin: adminReducer
   },
 })
 

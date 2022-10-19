@@ -42,7 +42,7 @@ const booksSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(fetchAllBooksThunk.fulfilled, (state: BookState, action) => {
-        let data = action.payload
+        const data = action.payload
         data.forEach((book: Book) => {
           state.entities = {
             ...state.entities,

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { User } from 'utils/types';
 import { RootState } from 'redux/store'
 import { BACKEND_URL } from 'utils/configs'
 
@@ -8,13 +9,7 @@ export interface AuthState {
   isLogin: boolean
   isActive: boolean
   isAdmin: boolean
-  userInfo: {
-    _id: string
-    email: string
-    displayName: string
-    status: string
-    role: string
-  }
+  userInfo: User
   status: string
 }
 

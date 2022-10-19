@@ -25,3 +25,11 @@ export type BorrowedHistory = {
   dueDate: string
   returnedDate?: string
 }
+
+export type User = {
+  _id: string
+  email: string
+  displayName: string
+  status: string
+  role: string
+}
