@@ -63,7 +63,7 @@ const Navbar = () => {
             <h1 className="text-lg font-bold">THE SIGMA LIBRARY</h1>
           </div>
         </Link>
-        <Link to="/book">
+        <Link to="/books">
           <div className="p-4 hover:text-light-gold-6 hover:bg-light-gold-1 hover:border-b-2 hover:border-light-gold-6">
             <h1 className="font-semibold">BROWSE BOOK</h1>
           </div>

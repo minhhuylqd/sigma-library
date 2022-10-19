@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { fetchAllBooks, selectFilteredBookIds } from 'redux/slices/booksSlice'
+import { fetchAllBooksThunk, selectFilteredBookIds } from 'redux/slices/booksSlice'
 import { selectAuthState } from 'redux/slices/authSlice'
 import ListItem from './ListItem'
 import { AppDispatch } from 'redux/store'
@@ -11,7 +11,7 @@ const BookList = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(fetchAllBooks())
+    dispatch(fetchAllBooksThunk())
   }, [dispatch])
 
   const bookIds = useSelector(selectFilteredBookIds)

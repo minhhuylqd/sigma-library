@@ -10,6 +10,13 @@ export type Book = {
   authorNames: string[]
 }
 
+export type Author = {
+  _id: string
+  name: string
+  dob: string
+  dod?: string
+}
+
 export type BorrowedHistory = {
   _id: string
   bookId: string

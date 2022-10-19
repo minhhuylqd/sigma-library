@@ -5,11 +5,13 @@ import { Provider } from 'react-redux'
 import App from 'components/App'
 import store from 'redux/store'
 import 'index.css'
-import { fetchAllBooks } from 'redux/slices/booksSlice'
+import { fetchAllBooksThunk } from 'redux/slices/booksSlice'
 import reportWebVitals from 'reportWebVitals'
 import { fetchCredentialThunk } from 'redux/slices/authSlice'
+import { fetchAllAuthorsThunk } from 'redux/slices/authorsSlice'
 
-store.dispatch(fetchAllBooks())
+store.dispatch(fetchAllBooksThunk())
+store.dispatch(fetchAllAuthorsThunk())
 store.dispatch(fetchCredentialThunk())
 
 const container = document.getElementById('root')!
