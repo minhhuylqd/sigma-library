@@ -57,7 +57,7 @@ const BorrowedHistory = () => {
               ? ('Returned at ' + new Date(borrower.returnedDate).toDateString() )
               : (
                 <button
-                  className='border-2 border-light-gold-6 hover:bg-light-gold-1 rounded-3xl px-4 py-1'
+                  className='border-2 border-light-gold-6 hover:bg-light-gold-1 rounded-3xl px-4 py-1 active:bg-light-gold-6 active:text-light-primary'
                   onClick={() => {handleReturn(borrower._id)}}
                 >
                   Return Book
