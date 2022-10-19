@@ -8,6 +8,10 @@ import Signup from 'pages/Signup'
 import User from 'pages/User'
 import Admin from 'pages/Admin'
 import AuthorInfo from 'pages/AuthorInfo'
+import AdminAuthors from 'pages/AdminManagement/AdminAuthors'
+import AdminBooks from 'pages/AdminManagement/AdminBooks'
+import AdminBorrower from 'pages/AdminManagement/AdminBorrower'
+import AdminUsers from 'pages/AdminManagement/AdminUsers'
 
 const App = () => {
   return (
@@ -26,6 +30,10 @@ const App = () => {
         <Route path="/user" element={<User />} />
 
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/authors" element={<AdminAuthors />} />
+        <Route path="/admin/books" element={<AdminBooks />} />
+        <Route path="/admin/borrower" element={<AdminBorrower />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
       </Routes>
     </BrowserRouter>
   )
