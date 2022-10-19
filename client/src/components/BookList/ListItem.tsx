@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { selectAuthorsEntities } from 'redux/slices/authorsSlice'
 
 import { fetchAllBooksThunk, selectBookById } from 'redux/slices/booksSlice'
@@ -16,6 +16,8 @@ type Item = {
 
 const ListItem = ({ id, isLogin, isActive }: Item) => {
   const dispatch = useDispatch<AppDispatch>()
+
+  const navigate = useNavigate()
 
   const [borrowStatus, setBorrowStatus] = useState({
     status: '',
@@ -65,23 +67,36 @@ const ListItem = ({ id, isLogin, isActive }: Item) => {
 
   const authorIds = book.authors || []
   const authors = authorIds.map((authorId) => (
-    <Link to={`authors/${authorId}`} key={authorId}>
-      <span>{authorEntities[authorId].name}, </span>
-    </Link>
+    <span
+      key={authorId}
+      onClick={(event) => {
+        event.stopPropagation()
+        navigate(`/authors/${authorId}`)
+      }}
+    >{authorEntities[authorId].name}, </span>
   ))
 
   const borrowBtn = (
     <button 
-      className='border-2 border-light-gold-6 hover:bg-light-gold-1 rounded-3xl px-4 py-1'
-      onClick={handleBorrowRequest}
+      className='border-2 border-light-gold-6 hover:bg-light-gold-1 rounded-3xl px-4 py-1 active:bg-light-gold-6 active:text-light-primary'
+      onClick={ (event) => {
+        event.stopPropagation()
+        handleBorrowRequest()
+      }
+      }
     >
       Borrow
     </button>
   )
 
   return (
-    <Link to={`/books/${book._id}`}>
-      <ul className='hover:bg-light-gold-1 hover:cursor-pointer rounded-lg p-4'>
+      <ul 
+        className='hover:bg-light-gold-1 hover:cursor-pointer rounded-lg p-4'
+        onClick={(event) => {
+          event.stopPropagation()
+          navigate(`/books/${book._id}`)
+        }}
+      >
         <li>Title: {book.title}</li>
         <li>ISBN: {book.isbn}</li>
         <li>Copies: {book.availableCopies}</li>
@@ -104,8 +119,7 @@ const ListItem = ({ id, isLogin, isActive }: Item) => {
         {
           borrowStatus.status === 'FAIL' && <li>{borrowStatus.message}</li>
         }
-      </ul>
-    </Link>
+    </ul>
   )
 }
 
