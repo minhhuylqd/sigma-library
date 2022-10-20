@@ -8,6 +8,7 @@ import { selectAuthorsEntities } from 'redux/slices/authorsSlice'
 import { selectAuthState } from 'redux/slices/authSlice'
 import { AppDispatch, RootState } from 'redux/store'
 import { BACKEND_URL, COVER_URL } from 'utils/configs'
+import RecommendReadings from 'components/RecommendReadings'
 
 const BookProfile = ({bookId}: {bookId: string}) => {
 
@@ -124,7 +125,7 @@ const BookProfile = ({bookId}: {bookId: string}) => {
         <p>ISBN: {book.isbn}</p>
         <div className='mt-16'>
           <h2 className='italic'>Recommend Readings</h2>
-          
+          <RecommendReadings />
         </div>
       </div>
     </div>
