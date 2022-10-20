@@ -22,7 +22,11 @@ const Admin = () => {
       <div className='flex'>
         <Sidebar /> 
         <div className='w-[100%-200px] h-full'>
-          <h1>Admin Dashboard</h1>
+          <div className="w-full h-full p-8 overflow-x-auto">
+            <h1 className="inline-block mb-8 text-2xl border-b-4 border-light-gold-6">
+              Library Management
+            </h1>
+          </div>
         </div>
       </div>
     </div>

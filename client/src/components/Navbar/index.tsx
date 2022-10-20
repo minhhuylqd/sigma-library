@@ -67,7 +67,7 @@ const Navbar = () => {
       <div className="flex items-center">
         <Link to="/books">
           <div className="px-6 py-4 rounded-3xl hover:text-light-gold-6 hover:bg-light-gold-1 active:bg-light-gold-6 active:text-light-primary">
-            <h1 className="font-semibold">BROWSE BOOK</h1>
+            <h1 className="">BROWSE BOOK</h1>
           </div>
         </Link>
         {isActive && isAdmin && adminLink}

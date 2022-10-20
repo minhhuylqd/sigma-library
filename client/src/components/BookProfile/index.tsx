@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { fetchAllBooksThunk, selectBookById } from 'redux/slices/booksSlice'
 import { selectAuthorsEntities } from 'redux/slices/authorsSlice'
+import { selectAuthState } from 'redux/slices/authSlice'
 import { AppDispatch, RootState } from 'redux/store'
 import { BACKEND_URL, COVER_URL } from 'utils/configs'
 
@@ -13,6 +14,8 @@ const BookProfile = ({bookId}: {bookId: string}) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const navigate = useNavigate()
+
+  const { isLogin, isActive, isAdmin } = useSelector(selectAuthState)
 
   useEffect(() => {
     dispatch(fetchAllBooksThunk())
@@ -100,7 +103,11 @@ const BookProfile = ({bookId}: {bookId: string}) => {
           alt="Book Cover" 
           className='max-w-[200px] h-auto'
         />
-        {borrowBtn}
+        {
+          book.availableCopies > 0
+            ? ((isLogin && isActive) ? borrowBtn : <i className='text-sm'>Login with Active Account to borrow</i>)
+            : <i className='text-sm'>Out of Copies</i>
+        }
         {
           borrowStatus.status !== '' && <i>{borrowStatus.message}</i>
         }
@@ -116,7 +123,7 @@ const BookProfile = ({bookId}: {bookId: string}) => {
         <p>{book.description}</p>
         <p>ISBN: {book.isbn}</p>
         <div className='mt-16'>
-          <h2 className='italic'>Recommend Reading</h2>
+          <h2 className='italic'>Recommend Readings</h2>
           
         </div>
       </div>

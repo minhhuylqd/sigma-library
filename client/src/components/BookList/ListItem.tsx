@@ -111,7 +111,7 @@ const ListItem = ({ id, isLogin, isActive }: Item) => {
         <li className='text-sm italic'>
           {authors}
         </li>
-        <li>
+        <li className='text-xs'>
           {
             book.availableCopies > 0
               ? ((isLogin && isActive) ? borrowBtn : 'Login with Active Account to borrow')
