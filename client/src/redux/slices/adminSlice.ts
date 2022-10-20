@@ -1,6 +1,8 @@
-import { Book, Author, User, BorrowedHistory } from 'utils/types'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+
+import { RootState } from 'redux/store';
+import { Book, Author, User, BorrowedHistory } from 'utils/types'
+import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit'
 
 import { BACKEND_URL } from 'utils/configs'
 
@@ -188,4 +190,41 @@ export default adminSlice.reducer
 // ENDREGION -- AdminSlice
 
 // REGION -- Selectors
+export const adminSelectBookState = (state: RootState) => state.admin.books
+
+export const adminSelectBookEntities = (state: RootState) => state.admin.books.entities
+
+export const adminSelectBookIds = createSelector(
+  adminSelectBookEntities,
+  (bookEntities) => Object.keys(bookEntities)
+)
+
+export const adminSelectBookById = (state: RootState, bookId: string) => adminSelectBookEntities(state)[bookId]
+
+
+export const adminSelectAuthorState = (state: RootState) => state.admin.authors
+
+export const adminSelectAuthorEntities = (state: RootState) => state.admin.authors.entities
+
+export const adminSelectAuthorIds = createSelector(
+  adminSelectAuthorEntities,
+  (authorEntities) => Object.keys(authorEntities)
+)
+
+export const adminSelectAuthorById = (state: RootState, authorId: string) => adminSelectAuthorEntities(state)[authorId]
+
+
+export const adminSelectUserState = (state: RootState) => state.admin.users
+
+export const adminSelectUserEntities = (state: RootState) => state.admin.users.entities
+
+export const adminSelectUserIds = createSelector(
+  adminSelectUserEntities,
+  (userEntities) => Object.keys(userEntities)
+)
+
+export const adminSelectUserById = (state: RootState, userId: string) => adminSelectUserEntities(state)[userId]
+
+
+export const adminSelectBorrowerEntities = (state: RootState) => state.admin.borrower.entities
 // ENDREGION -- Selectors
