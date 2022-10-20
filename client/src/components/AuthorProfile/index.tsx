@@ -14,8 +14,9 @@ const AuthorProfile = ({authorId}: {authorId: string}) => {
   const author = useSelector((state: RootState) => selectAuthorById(state, authorId))
 
   return (
-    <div>
-      <h1>{author.name}</h1>
+    <div className='p-10'>
+      <h1 className='text-xl'>{author.name}</h1>
+      <p>DOB: {new Date(author.dob).toDateString()}</p>
     </div>
   )
 }
