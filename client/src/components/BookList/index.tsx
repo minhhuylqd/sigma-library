@@ -22,7 +22,7 @@ const BookList = () => {
   ))
 
   return (
-    <div className="w-full lg:w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-2 p-8 gap-4">
+    <div className="w-full max-w-[800px] lg:w-[80%] mx-auto grid grid-cols-2 lg:grid-cols-4 p-8 gap-4">
       {bookItems}
     </div>
   )
