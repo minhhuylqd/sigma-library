@@ -21,6 +21,8 @@ const UserInfo = () => {
       <ul>
         <li>Email: {userInfo.email}</li>
         <li>Display Name: {userInfo.displayName}</li>
+        <li>Status: {userInfo.status}</li>
+        <li>Privilege: {userInfo.role}</li>
       </ul>
       <BorrowedHistory />
     </div>
