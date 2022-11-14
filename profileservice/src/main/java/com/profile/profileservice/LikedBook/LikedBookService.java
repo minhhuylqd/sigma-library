@@ -21,6 +21,11 @@ public class LikedBookService {
     return this.likedBookRepository.findAll();
   }
 
+  @Transactional
+  public List<LikedBook> getLikedBooksByUserId(String userId) {
+    return this.likedBookRepository.findLikedBookByUserId(userId);
+  }
+
   public void addLikedBook(LikedBook likedBook) {
     Optional<LikedBook> optionalLikedBook = this.likedBookRepository.findLikedBookByUserIdAndBookId(likedBook.getUserId(), likedBook.getBookId());
 
