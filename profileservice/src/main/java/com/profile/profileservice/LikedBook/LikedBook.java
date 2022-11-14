@@ -1,8 +1,21 @@
 package com.profile.profileservice.LikedBook;
 
+import javax.persistence.*;
 
+@Entity
+@Table
 public class LikedBook {
   
+  @Id
+  @SequenceGenerator(
+    name = "liked_book_id_sequence",
+    sequenceName = "liked_book_id_sequence",
+    allocationSize = 1
+  )
+  @GeneratedValue(
+    strategy = GenerationType.SEQUENCE,
+    generator = "liked_book_id_sequence"
+  )
   private Long id;
   private String userId;
   private String bookId;
