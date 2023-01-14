@@ -1,3 +1,3 @@
-export const BACKEND_URL = 'http://localhost:4000/api/v1'
-export const COVER_URL = 'https://covers.openlibrary.org/b/isbn/'
-export const RECOMMEND_SERVICE_URL = 'http://localhost:5000'
+export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
+export const COVER_URL = process.env.REACT_APP_COVER_URL
+export const RECOMMEND_SERVICE_URL = process.env.REACT_APP_RECOMMEND_SERVICE_URL
