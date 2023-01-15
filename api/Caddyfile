@@ -1,4 +1,4 @@
-sigmalib.jonathando.dev {
+api.sigmalib.jonathando.dev {
   reverse_proxy rest-api:4000 {
     header_down Strict-Transport-Security max-age=31536000;
   }
